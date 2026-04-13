@@ -215,7 +215,7 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
           <nav className="relative flex min-h-20 items-center justify-between gap-4" onMouseLeave={() => setActiveMega(null)}>
             <BrandLogo href={localizePath(locale)} compact />
 
-            <div className="hidden items-center gap-1 xl:flex">
+            <div className="hidden items-center gap-0.5 xl:flex">
               <MegaTrigger
                 active={activeMega === 'categories'}
                 label={lt(locale, 'Categories', 'الفئات', 'پۆلەکان', 'Kategoriler')}
@@ -234,11 +234,16 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-secondary hover:text-primary',
-                    pathname === link.href ? 'bg-secondary text-primary' : 'text-foreground/85',
+                    'relative rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
+                    pathname === link.href
+                      ? 'bg-secondary text-primary shadow-sm'
+                      : 'text-foreground/75 hover:text-foreground hover:bg-secondary/50',
                   )}
                 >
                   {link.label}
+                  {pathname === link.href && (
+                    <span className="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-primary" />
+                  )}
                 </Link>
               ))}
             </div>
@@ -292,40 +297,40 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
             <AnimatePresence>
               {activeMega && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute inset-x-0 top-full hidden pt-4 xl:block"
+                  exit={{ opacity: 0, y: 4 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute inset-x-0 top-full hidden pt-3 xl:block"
                 >
-                  <div className="overflow-hidden rounded-[2rem] border border-border bg-card/95 shadow-[0_24px_80px_rgba(0,0,0,0.14)] backdrop-blur-2xl">
+                  <div className="overflow-hidden rounded-2xl border border-border/60 bg-background/95 shadow-lg backdrop-blur-xl">
                     {activeMega === 'categories' ? (
-                      <div className="grid gap-0 xl:grid-cols-[1.25fr_1.25fr_0.9fr]">
-                        {megaGroups.map((group) => (
-                          <div key={group.title} className="border-b border-border/70 p-6 last:border-b-0 xl:border-b-0 xl:border-e">
-                            <div className="mb-5 flex items-center gap-3">
-                              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                                <Sparkles className="h-5 w-5" />
+                      <div className="grid gap-0 xl:grid-cols-[1.2fr_1.2fr_1fr]">
+                        {megaGroups.map((group, idx) => (
+                          <div key={group.title} className={cn('border-b border-border/40 p-7 last:border-b-0 xl:border-b-0', idx > 0 && 'xl:border-s')}>
+                            <div className="mb-6 flex items-start gap-3">
+                              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/8 text-primary flex-shrink-0">
+                                <Sparkles className="h-4.5 w-4.5" />
                               </span>
                               <div>
-                                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{group.title}</p>
-                                <p className="text-xs text-muted-foreground">{lt(locale, 'Designed for a smoother shopping menu.', 'مصمم لقائمة تسوق أكثر سلاسة.', 'بۆ لیستی بازاڕکردنێکی نەرمتر.', 'Daha akıcı bir alışveriş menüsü için tasarlandı.')}</p>
+                                <p className="text-xs font-bold uppercase tracking-wider text-primary">{group.title}</p>
+                                <p className="mt-1 text-xs text-muted-foreground">{lt(locale, 'Smooth shopping experience', 'تجربة تسوق سلسة', 'تجربەی بازاڕکردنی نەرم', 'Akıcı alışveriş deneyimi')}</p>
                               </div>
                             </div>
-                            <div className="grid gap-2">
+                            <div className="grid gap-2.5">
                               {group.items.map((item) => (
                                 <Link
                                   key={item.title}
                                   href={localizedHref(locale, item.href)}
-                                  className="group rounded-[1.4rem] border border-transparent bg-background/70 px-4 py-4 transition-all hover:border-primary/20 hover:bg-secondary"
+                                  className="group rounded-xl border border-border/40 bg-background/40 px-4 py-3 transition-all duration-200 hover:border-primary/30 hover:bg-secondary/50"
                                 >
-                                  <div className="flex items-start gap-4">
-                                    <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary text-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                                  <div className="flex items-start gap-3">
+                                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/60 text-foreground transition-all duration-200 group-hover:bg-primary/12 group-hover:text-primary flex-shrink-0">
                                       <CategoryGlyph name={item.icon} />
                                     </span>
-                                    <div>
-                                      <p className="font-semibold">{item.title}</p>
-                                      <p className="mt-1 text-sm text-muted-foreground">{item.text}</p>
+                                    <div className="flex-1">
+                                      <p className="font-semibold text-foreground leading-tight">{item.title}</p>
+                                      <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">{item.text}</p>
                                     </div>
                                   </div>
                                 </Link>
@@ -334,47 +339,45 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
                           </div>
                         ))}
 
-                        <div className="p-6">
-                          <div className="rounded-[1.6rem] border border-border bg-background/75 p-5">
-                            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-                              {lt(locale, 'Popular colours', 'الألوان الشائعة', 'ڕەنگە باوەکان', 'Popüler renkler')}
-                            </p>
-                            <p className="mt-2 text-sm text-muted-foreground">
-                              {lt(locale, 'Use a visual palette exactly like your reference idea, but cleaner and softer.', 'استخدم لوحة بصرية مثل المرجع لكن بشكل أنعم وأنظف.', 'پالێتی ڕەنگ وەک نموونەکە بەڵام پاکتر و نەرمتر.', 'Referans görsel gibi ama daha temiz ve yumuşak bir palet.')}
-                            </p>
-                            <div className="mt-5 grid grid-cols-2 gap-3">
-                              {swatches.map((swatch) => (
-                                <button
-                                  key={swatch.key}
-                                  type="button"
-                                  className="flex items-center gap-3 rounded-full border border-border bg-card px-3 py-2 text-start text-sm transition-all hover:border-primary/25 hover:-translate-y-0.5"
-                                >
-                                  <span className="h-5 w-5 rounded-full border border-black/10 shadow-sm" style={{ backgroundColor: swatch.hex }} />
-                                  <span>{getSwatchLabel(locale, swatch.key)}</span>
-                                </button>
-                              ))}
-                            </div>
+                        <div className="border-t border-border/40 p-7 xl:border-t-0 xl:border-s">
+                          <p className="text-xs font-bold uppercase tracking-wider text-primary mb-3">
+                            {lt(locale, 'Popular colours', 'الألوان الشائعة', 'ڕەنگە باوەکان', 'Popüler renkler')}
+                          </p>
+                          <p className="text-xs text-muted-foreground mb-4">
+                            {lt(locale, 'Visual palette inspiration', 'إلهام لوحة بصرية', 'ئیلهامی پالێتی ڕەنگ', 'Görsel palet ilhamı')}
+                          </p>
+                          <div className="grid grid-cols-2 gap-2">
+                            {swatches.map((swatch) => (
+                              <button
+                                key={swatch.key}
+                                type="button"
+                                className="flex items-center gap-2.5 rounded-lg border border-border/50 bg-background/40 px-3 py-2 text-start text-xs transition-all duration-200 hover:border-primary/40 hover:bg-secondary/40"
+                              >
+                                <span className="h-4 w-4 rounded-full border border-black/10 shadow-sm flex-shrink-0" style={{ backgroundColor: swatch.hex }} />
+                                <span className="font-medium">{getSwatchLabel(locale, swatch.key)}</span>
+                              </button>
+                            ))}
                           </div>
                         </div>
                       </div>
                     ) : (
-                      <div className="grid gap-4 p-6 lg:grid-cols-2">
-                        <div className="rounded-[1.6rem] border border-border bg-background/70 p-6">
-                          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-                            {lt(locale, 'Design a fuller homepage', 'صمّم صفحة رئيسية أغنى', 'ماڵپەڕی سەرەکی پڕتر دروست بکە', 'Daha dolu bir ana sayfa tasarla')}
+                      <div className="grid gap-5 p-7 lg:grid-cols-[1.3fr_1.3fr]">
+                        <div className="rounded-xl border border-border/40 bg-background/40 p-6">
+                          <p className="text-xs font-bold uppercase tracking-wider text-primary">
+                            {lt(locale, 'Explore & discover', 'اكتشف وتصفح', 'ڕوونکردنەوە و بدۆزەوە', 'Keşfet ve göz at')}
                           </p>
-                          <h3 className="mt-3 text-2xl font-serif font-bold">
-                            {lt(locale, 'Pages, trust, team and room inspiration in one system.', 'صفحات وثقة وفريق وإلهام للغرف في نظام واحد.', 'پەڕە و متمانە و تیم و ئیلهامی ژوور لە یەک سیستەمدا.', 'Sayfalar, güven, ekip ve oda ilhamı tek sistemde.')}
+                          <h3 className="mt-3 text-lg font-serif font-bold leading-snug">
+                            {lt(locale, 'Pages, trust & team inspiration', 'صفحات وثقة وإلهام الفريق', 'پەڕە و متمانە و ئیلهامی تیم', 'Sayfalar, güven & ekip ilhamı')}
                           </h3>
-                          <p className="mt-4 text-muted-foreground">
-                            {lt(locale, 'This mega menu is prepared for future growth, not only a simple dropdown.', 'هذه القائمة مهيأة للتوسع المستقبلي وليست مجرد قائمة بسيطة.', 'ئەم مێگا مینیوە ئامادەی گەشەپێدانی داهاتووە، تەنها درۆپداون نییە.', 'Bu mega menü yalnızca basit bir dropdown değil, geleceğe hazırdır.')}
+                          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                            {lt(locale, 'Grow with projects, team profiles and room inspiration in one unified system.', 'نمِّ أعمالك مع المشاريع والفريق والإلهام.', 'بە پڕۆژە و تیم و ئیلهام گەشە بکە.', 'Projeler, ekip ve ilham ile büyüyün.')}
                           </p>
                         </div>
-                        <div className="grid gap-3">
+                        <div className="grid gap-2.5">
                           {discoverLinks.map((item) => (
-                            <Link key={item.title} href={localizedHref(locale, item.href)} className="rounded-[1.4rem] border border-border bg-background/70 p-5 transition-all hover:-translate-y-0.5 hover:border-primary/20 hover:bg-secondary">
-                              <p className="font-semibold">{item.title}</p>
-                              <p className="mt-2 text-sm text-muted-foreground">{item.text}</p>
+                            <Link key={item.title} href={localizedHref(locale, item.href)} className="rounded-lg border border-border/40 bg-background/40 p-4 transition-all duration-200 hover:border-primary/30 hover:bg-secondary/50">
+                              <p className="font-semibold text-sm">{item.title}</p>
+                              <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">{item.text}</p>
                             </Link>
                           ))}
                         </div>
@@ -393,28 +396,29 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden border-t border-border/60 xl:hidden"
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden border-t border-border/40 xl:hidden"
             >
-              <div className="container mx-auto space-y-6 px-4 py-5">
-                <div className="rounded-[1.8rem] border border-border bg-card p-4">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              <div className="container mx-auto space-y-5 px-4 py-6">
+                <div className="rounded-xl border border-border/40 bg-card/30 p-5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-primary">
                     {lt(locale, 'Categories', 'الفئات', 'پۆلەکان', 'Kategoriler')}
                   </h3>
-                  <div className="mt-4 grid gap-3">
+                  <div className="mt-4 grid gap-2.5">
                     {megaGroups.flatMap((group) => group.items).map((item) => (
                       <Link
                         key={item.title}
                         href={localizedHref(locale, item.href)}
                         onClick={() => setMobileOpen(false)}
-                        className="rounded-2xl border border-border bg-background px-4 py-3"
+                        className="rounded-lg border border-border/40 bg-background/40 px-4 py-3 transition-all duration-200 active:bg-secondary/50"
                       >
                         <div className="flex items-start gap-3">
-                          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary text-foreground">
+                          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary/60 text-foreground flex-shrink-0">
                             <CategoryGlyph name={item.icon} />
                           </span>
-                          <div>
-                            <p className="font-medium">{item.title}</p>
-                            <p className="mt-1 text-sm text-muted-foreground">{item.text}</p>
+                          <div className="flex-1">
+                            <p className="font-semibold text-sm">{item.title}</p>
+                            <p className="mt-0.5 text-xs text-muted-foreground">{item.text}</p>
                           </div>
                         </div>
                       </Link>
@@ -428,49 +432,54 @@ export function SiteHeader({ locale, dict }: SiteHeaderProps) {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="rounded-2xl border border-border bg-card px-4 py-3 font-medium"
+                      className={cn(
+                        'rounded-lg border px-4 py-3 font-medium text-sm transition-all duration-200',
+                        pathname === link.href
+                          ? 'border-primary/30 bg-secondary text-primary'
+                          : 'border-border/40 bg-card/30 text-foreground',
+                      )}
                     >
                       {link.label}
                     </Link>
                   ))}
                 </div>
 
-                <div className="rounded-[1.8rem] border border-border bg-card p-4">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                <div className="rounded-xl border border-border/40 bg-card/30 p-5">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-primary">
                     {lt(locale, 'Popular colours', 'الألوان الشائعة', 'ڕەنگە باوەکان', 'Popüler renkler')}
                   </h3>
                   <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
                     {swatches.map((swatch) => (
-                      <div key={swatch.key} className="flex items-center gap-3 rounded-full border border-border bg-background px-3 py-2 text-sm">
-                        <span className="h-5 w-5 rounded-full border border-black/10" style={{ backgroundColor: swatch.hex }} />
-                        <span>{getSwatchLabel(locale, swatch.key)}</span>
+                      <div key={swatch.key} className="flex items-center gap-2.5 rounded-lg border border-border/40 bg-background/40 px-3 py-2 text-xs">
+                        <span className="h-4 w-4 rounded-full border border-black/10 flex-shrink-0" style={{ backgroundColor: swatch.hex }} />
+                        <span className="font-medium">{getSwatchLabel(locale, swatch.key)}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <Button asChild variant="outline" className="rounded-2xl">
+                <div className="grid gap-2.5 sm:grid-cols-2">
+                  <Button asChild variant="outline" className="rounded-lg">
                     <Link href={localizedHref(locale, '/login')} onClick={() => setMobileOpen(false)}>
                       {dict.login}
                     </Link>
                   </Button>
-                  <Button asChild className="rounded-2xl">
+                  <Button asChild className="rounded-lg">
                     <Link href={localizedHref(locale, '/signup')} onClick={() => setMobileOpen(false)}>
                       {dict.signup}
                     </Link>
                   </Button>
                 </div>
 
-                <div className="flex flex-wrap gap-2 border-t border-border/70 pt-4">
+                <div className="flex flex-wrap gap-2 border-t border-border/40 pt-5">
                   {(Object.entries(localeInfo) as [Locale, (typeof localeInfo)[Locale]][]).map(([key, info]) => (
                     <Link
                       key={key}
                       href={switchLocalePath(pathname, key)}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
-                        'rounded-full px-3 py-2 text-sm',
-                        key === locale ? 'bg-primary text-primary-foreground' : 'bg-secondary',
+                        'rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200',
+                        key === locale ? 'bg-primary text-primary-foreground' : 'bg-secondary/60',
                       )}
                     >
                       {info.nativeLabel}
@@ -504,12 +513,17 @@ function MegaTrigger({
       onFocus={onOpen}
       onClick={onToggle}
       className={cn(
-        'inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors',
-        active ? 'bg-secondary text-primary' : 'text-foreground/85 hover:bg-secondary hover:text-primary',
+        'relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
+        active
+          ? 'bg-secondary text-primary shadow-sm'
+          : 'text-foreground/75 hover:text-foreground hover:bg-secondary/50',
       )}
     >
       {label}
-      <ChevronDown className={cn('ms-2 h-4 w-4 transition-transform', active && 'rotate-180')} />
+      <ChevronDown className={cn('ms-2 h-4 w-4 transition-transform duration-300', active && 'rotate-180')} />
+      {active && (
+        <span className="absolute inset-x-1 bottom-0 h-0.5 rounded-full bg-primary" />
+      )}
     </button>
   )
 }
