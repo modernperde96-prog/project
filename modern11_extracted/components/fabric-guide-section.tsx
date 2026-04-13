@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Layers3, Ruler, SwatchBook } from 'lucide-react'
+import { ArrowRight, Layers as Layers3, Ruler, SwatchBook } from 'lucide-react'
 import { Locale, localizePath } from '@/lib/i18n'
 
 const lt = (locale: Locale, en: string, ar: string, ku: string, tr: string) => ({ en, ar, ku, tr }[locale])

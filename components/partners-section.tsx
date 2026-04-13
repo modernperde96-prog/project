@@ -1,4 +1,4 @@
-import { CheckCircle2, Handshake, Layers3, PackageCheck, PlayCircle, ShieldCheck, Sparkles } from 'lucide-react'
+import { CircleCheck as CheckCircle2, Handshake, Layers as Layers3, PackageCheck, CirclePlay as PlayCircle, ShieldCheck, Sparkles } from 'lucide-react'
 import { Dictionary, Locale, partnerCards } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 

@@ -3,22 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
-  Sparkles,
-  Wand2,
-  GalleryVerticalEnd,
-  Star,
-  Ruler,
-  Palette,
-  Home,
-  Building2,
-  Award,
-} from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play, Sparkles, Wand as Wand2, GalleryVerticalEnd, Star, Ruler, Palette, Hop as Home, Building2, Award } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { BeforeAfterSlider } from '@/components/before-after-slider'
 import { cn } from '@/lib/utils'

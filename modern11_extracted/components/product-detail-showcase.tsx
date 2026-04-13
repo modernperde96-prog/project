@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback } from 'react'
 import Link from 'next/link'
-import { Minus, Plus, MessageCircleMore, PlayCircle, RotateCcw, Move } from 'lucide-react'
+import { Minus, Plus, MessageCircleMore, CirclePlay as PlayCircle, RotateCcw, Move } from 'lucide-react'
 import type { CatalogProduct } from '@/lib/catalog-data'
 import { colorSwatches } from '@/lib/catalog-data'
 import { buildProductWhatsAppLink } from '@/lib/site-links'

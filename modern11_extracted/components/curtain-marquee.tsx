@@ -1,6 +1,6 @@
 "use client"
 
-import { Sparkles, Layers, Palette, Ruler, Home, Star } from 'lucide-react'
+import { Sparkles, Layers, Palette, Ruler, Hop as Home, Star } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
 
 const lt = (locale: Locale, en: string, ar: string, ku: string, tr: string) => ({ en, ar, ku, tr }[locale])

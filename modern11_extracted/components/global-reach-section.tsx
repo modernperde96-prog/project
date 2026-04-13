@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { Globe2, MapPinned, Palette, PackageCheck } from 'lucide-react'
+import { Globe as Globe2, MapPinned, Palette, PackageCheck } from 'lucide-react'
 import { Locale } from '@/lib/i18n'
 
 const lt = (locale: Locale, en: string, ar: string, ku: string, tr: string) => ({ en, ar, ku, tr }[locale])

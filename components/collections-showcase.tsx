@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Layers3, SunMedium, ShieldHalf, Sparkles, Star } from 'lucide-react'
+import { Layers as Layers3, SunMedium, ShieldHalf, Sparkles, Star } from 'lucide-react'
 import { Dictionary, Locale, localizePath } from '@/lib/i18n'
 
 const lt = (locale: Locale, en: string, ar: string, ku: string, tr: string) => ({ en, ar, ku, tr }[locale])

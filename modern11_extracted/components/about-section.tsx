@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Award, Layers3, Sparkles, LayoutGrid, Ruler, Scissors, Wrench, ShieldCheck, Sofa, SunMedium, Workflow } from 'lucide-react'
+import { Award, Layers as Layers3, Sparkles, LayoutGrid, Ruler, Scissors, Wrench, ShieldCheck, Sofa, SunMedium, Workflow } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dictionary, Locale, localizePath } from '@/lib/i18n'
 

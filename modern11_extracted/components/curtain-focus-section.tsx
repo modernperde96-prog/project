@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, GalleryVerticalEnd, Layers3, Sparkles, Wand2 } from 'lucide-react'
+import { ArrowRight, GalleryVerticalEnd, Layers as Layers3, Sparkles, Wand as Wand2 } from 'lucide-react'
 import { Locale, localizePath } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 

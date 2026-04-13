@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, MapPin, Ruler, Layers3 } from 'lucide-react'
+import { ArrowRight, MapPin, Ruler, Layers as Layers3 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Locale, localizePath } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
